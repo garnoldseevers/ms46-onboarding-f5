@@ -1,0 +1,45 @@
+<link href="https://fonts.googleapis.com/css?family=Lato:300,900|Open+Sans:300,400,700" rel="stylesheet"/>
+<link href="style.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+<!--<form name="user" method="post" action="https://blooom-api-staging.herokuapp.com/users" id="onboarding-form">-->
+<form name="user" method="post" action="https://blooom-api-staging.herokuapp.com/users" id="onboarding-form">
+	<input type="hidden" name="external" value="true" />
+	<ul id="progress-bar">
+		<li class="active">About You</li>
+		<li>Retirement Goals</li>
+		<li>Log In</li>
+	</ul>
+	<fieldset>
+		<h2 class="headline">About You</h2>
+		<label for="name">My first name is...</label>
+		<input type="text" name="name" placeholder="First Name" />
+		<label for="birth_date">I was born on...</label>
+		<input type="date" name="birth_date" placeholder="Birth Date" />
+		<label for="sex">I am a...</label>
+		<div class="clearfix">
+			<input type="radio" name="sex" value="m" /> Man
+			<input type="radio" name="sex" value="f" /> Woman
+		</div>
+		<input type="button" name="next" class="next button" value="Next" />
+	</fieldset>
+	<fieldset>
+		<h2 class="headline">Retirement Goals</h2>
+		<label for="sex">I'd like to smash my alarm clock at age...</label>
+		<input type="text" name="retirement_age" placeholder="Retirement age" />
+		<input type="button" name="previous" class="previous button" value="Previous" />
+		<input type="button" name="next" class="next button" value="Next" />
+	</fieldset>
+	<fieldset>
+		<h2 class="headline">Log In</h2>
+		<label for="email">Email Address</label>
+		<input type="email" name="email" placeholder="email address" />
+		<label for="email">Password</label>
+		<input type="password" name="password"/>
+		<label for="email">Confirm Password</label>
+		<input type="password" name="password_verify"/>
+		<input type="button" name="previous" class="previous button" value="Previous" />
+		<input type="submit" name="submit" class="submit button" value="Submit" />
+	</fieldset>
+</form>
+<script src="http://thecodeplayer.com/uploads/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="animate-fieldsets.js" type="text/javascript"></script>
