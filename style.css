@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Montserrat);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 
 /* CSS reset */
 *{
@@ -12,7 +12,12 @@ html{
 	background-color: #ffffff;
 }
 body{
-	font-family: montserrat, "Open Sans", Arial, sans-serif;
+	font-family: "Open Sans", Arial, sans-serif;
+	background-color: #ffffff;
+	background-image: url("images/leaf-background.png");
+	background-position: top right;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 }
 .clearfix::after{
 	content: "";
@@ -20,6 +25,13 @@ body{
 	display: table;
 }
 
+/* Logo */
+#blooom-emblem{
+	display: block;
+	max-width: 10%;
+	margin: 0 auto;
+	margin-bottom: 5px;
+}
 /* Progress Bar */
 #progress-bar{
 	display: block;
@@ -35,7 +47,7 @@ body{
 	position: relative;
 	list-style-type: none;
 	font-size: 10px;
-	font-family: Montserrat,;
+	font-family: "Open Sans",;
 	text-transform: lowercase;
 	color: #7f7f7f;
 }
@@ -78,32 +90,38 @@ body{
 	width: 100%;
 	max-width: 480px;
 	position: relative;
-	margin: 25px auto;
+	margin: 0px auto;
+	padding: 25px 0px;
 	text-align: center;
 }
 
 /* Typography */
 #onboarding-form .headline{
-	font-size: 24px;
-	text-transform: lowercase;
-	color: #555555;
-	margin-bottom: 25px;
+	font-size: 16px;
+	font-weight: 700;
+	text-transform: uppercase;
+	color: #6c9d1b;
+	margin-bottom: 15px;
+}
+#onboarding-form .headline .light{
+	display: block;
+	font-weight: 300;
+	font-size: 14px;
 }
 #onboarding-form .subhead{
 	font-family: "Open Sans", Arial, sans-serif;
 	font-weight: normal;
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: 300;
 	color: #7f7f7f;
 	margin-bottom: 20px;
 }
 #onboarding-form label{
 	display: block;
-	padding-bottom: 10px;
-	font-family: Montserrat, "Open Sans", Arial, sans-serif;
-	font-size: 14px;
-	color: #7f7f7f;
-	text-transform: lowercase;
+	padding-bottom: 5px;
+	font-family: "Open Sans", "Open Sans", Arial, sans-serif;
+	font-size: 16px;
+	color: #8d8e90;
 }
 
 /* Fieldsets */
@@ -114,7 +132,7 @@ body{
 	margin: 0 15%;
 	border: none;
 	padding: 0px;
-	background: #ffffff;
+	padding-bottom: 50px;
 }
 #onboarding-form fieldset:not(:first-of-type){
 	display: none;
@@ -125,10 +143,10 @@ body{
 #onboarding-form textarea{
 	width: 100%;
 	box-sizing: border-box;
-	margin-bottom: 25px;
+	margin-bottom: 15px;
 	border-style: solid;
-	border-width: 1px;
-	border-color: #bababa;
+	border-width: 2px;
+	border-color: #80b729;
 	padding: 10px 15px;
 	border-radius: 5px;
 	font-family: "Open Sans", Arial, sans-serif;
@@ -146,30 +164,34 @@ body{
 
 /* Buttons */
 #onboarding-form .button{
-	width: 100px;
 	position: fixed;
-	bottom: 25px;
-	padding: 10px 5px;
+	bottom: 0px;
+	left: 0px;
+	margin-bottom: 0px;
 	border: none;
-	border-radius: 5px;
+	border-radius: 0px;
 	font-family: "Open Sans", Arial, sans-serif;
 	font-weight: 300;
+	font-size: 28px;
 	text-transform: lowercase;
 	color: #ffffff;
-	background-color: #7fb742;
+	background-color: #6c9d1b;
 	cursor: pointer;
 	-webkit-appearance: none;
 }
-#onboarding-form .button.next,
-#onboarding-form .button.submit{
-	right: 0px;
-	border-top-right-radius: 0px;
-	border-bottom-right-radius: 0px;
-}
 #onboarding-form .button.previous{
-	left: 0px;
+	display: inline-block;
+	width: auto;
+	position: fixed;
+	bottom: 75px;
+	left: 15px;
+	padding: 0px;
 	border-top-left-radius: 0px;
 	border-bottom-left-radius: 0px;
+	font-size: 16px;
+	color: #a0a0a0;
+	text-decoration: underline;
+	background: none;
 }
 #onboarding-form .button:hover, 
 #onboarding-form .button:focus{
@@ -184,4 +206,31 @@ body{
 	border-top-style: solid;
 	border-width: 1px;
 	border-color: #bababa;
+}
+/* Norton Seal */
+#norton-seal{
+	display: block;
+	margin: 0 auto;
+	max-width: 33%;
+}
+/* Desktop */
+@media screen and(min-width: 480px){
+	#onboarding-form .button{
+		bottom: 25px;
+		padding: 10px 25px;
+		border-radius: 5px;
+		font-size: 28px;
+	}
+	#onboarding-form .button.next,
+	#onboarding-form .button.submit{
+		right: 0px;
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+	}
+	#onboarding-form .button.previous{
+		left: 0px;
+		border-top-left-radius: 0px;
+		border-bottom-left-radius: 0px;
+		background-color: #a0a0a0;
+	}
 }
