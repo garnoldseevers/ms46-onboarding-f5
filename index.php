@@ -59,7 +59,7 @@
 					?>
 				</select>
 			</div><!-- .select-container -->
-			<div class="select-container" id="birth-year-select-container">
+			<div class="select-container clearfix" id="birth-year-select-container">
 				<div class="select-arrow"></div>
 				<select name="birth_year" id="birth-year" required>
 					<option value="Year" selected disabled>Year</option>
@@ -81,7 +81,7 @@
 			</p>
 			<img src="images/validation-checkmark.png" class="validation-icon" id="birth-date-validation-icon"></span>
 		</div><!-- .form-row -->
-		<div class="form-row clearfix">
+		<div class="form-row clearfix" id="gender-row">
 			<label for="sex">I am a...</label>
 			<div class="radio-button-container">
 				<input type="radio" name="sex" value="m" id="radio-button-man"/>
@@ -93,7 +93,7 @@
 			</div>
 		</div><!-- .form-row -->
 		<img src="images/norton-seal.png" alt="Norton Secured powered by VeriSign" id="norton-seal"/>
-		<input type="button" name="next-one" class="next button" value="Next" id="next-one"/>
+		<div class="next button active" id="next-one"/>Next<span class="button-arrow"></span></div>
 	</fieldset>
 	<fieldset>
 		<h2 class="headline">Retirement Goals</h2>
@@ -116,8 +116,12 @@
 				You aren't going to retire <span class="validation-callout" id="years_ago">2 years</span> ago, it's just not going to happen!
 			</p>
 		</div><!-- .form-row -->
-		<input type="button" name="previous" class="previous button" value="Previous" />
-		<input type="button" name="next" class="next button" value="Next" id="next-two" />
+		<div class="previous button"/>
+			<span class="button-arrow"></span>Previous
+		</div>
+		<div class="next button active" id="next-two"/>
+			Next<span class="button-arrow"></span>
+		</div>
 	</fieldset>
 	<fieldset>
 		<h2 class="headline"><span class="light">First Things First.</span> Let's Make Sure We Keep You Safe</h2>
@@ -130,18 +134,25 @@
 			<img src="images/validation-checkmark.png" class="validation-icon" id="email-validation-icon"></span>
 		</div><!-- .form-row -->
 		<div class="form-row" id="password-row">
-			<label for="email">Password</label>
+			<label for="password">Password</label>
 			<input type="password" name="password" id="password"/>
 			<img src="images/validation-checkmark.png" class="validation-icon" id="password-validation-icon"></span>
+			<div id="password-strength-meter">
+				<img src="images/security-icon.png" id="security-icon" alt="padlock" />
+				<span id="password-strength-bar"></span>
+				<span id="password-strength-message"></span>
+			</div>
 			<p class="validation-message" id="password-validation-message">
-				wowzer!
+				Try adding numbers, symbols, or different case letters
 			</p>
 		</div><!-- .form-row -->
 		<input type="hidden" name="password_verify" value="" id="password_verify"/>
-		<input type="button" name="previous" class="previous button" value="Previous" />
-		<input type="submit" name="submit" class="submit button" value="Submit" id="submit"/>
+		<div class="previous button"/>
+			<span class="button-arrow"></span>Previous
+		</div>
+		<input type="submit" name="submit" class="submit button active" value="Submit" id="submit"/>
 	</fieldset>
 </form>
 <script src="http://thecodeplayer.com/uploads/js/jquery-1.9.1.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/zxcvbn.js"></script>
-<script src="animate-fieldsets.js" type="text/javascript"></script>
+<script src="js/javascript.js" type="text/javascript"></script>
