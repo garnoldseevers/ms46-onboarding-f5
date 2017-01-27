@@ -101,7 +101,7 @@
 		<div class="form-row" id="retirement-age-row">
 			<div class="select-container">
 				<div class="select-arrow"></div>
-				<select name="retirement_age" required>
+				<select name="retirement_age" id="retirement-age" required>
 					<?php 
 						for($counter = 35; $counter <= 75; $counter += 1){
 							?>
@@ -111,24 +111,37 @@
 					?>
 				</select>
 			</div><!-- .select-container -->
-			<img src="images/validation-checkmark.png" class="validation-icon"></span>
+			<img src="images/validation-checkmark.png" class="validation-icon" id="retirement-age-validation-icon"></span>
+			<p class="validation-message" id="retirement-age-validation-message">
+				You aren't going to retire <span class="validation-callout" id="years_ago">2 years</span> ago, it's just not going to happen!
+			</p>
 		</div><!-- .form-row -->
 		<input type="button" name="previous" class="previous button" value="Previous" />
-		<input type="button" name="next" class="next button" value="Next" />
+		<input type="button" name="next" class="next button" value="Next" id="next-two" />
 	</fieldset>
 	<fieldset>
 		<h2 class="headline"><span class="light">First Things First.</span> Let's Make Sure We Keep You Safe</h2>
 		<p class="subhead">
 			Why do you need to create an account? Easy. Safety first kids. Plus, if you get distracted (i.e. your boss walks past your desk), you can pick up right where you left off.
 		</p>
-		<label for="email">Email Address</label>
-		<input type="email" name="email" placeholder="email address" />
-		<label for="email">Password</label>
-		<input type="password" name="password"/>
-		<input type="hidden" name="password_verify" value=""/>
+		<div class="form-row" id="email-row">
+			<label for="email">Email Address</label>
+			<input type="email" name="email" placeholder="email address" id="email" />
+			<img src="images/validation-checkmark.png" class="validation-icon" id="email-validation-icon"></span>
+		</div><!-- .form-row -->
+		<div class="form-row" id="password-row">
+			<label for="email">Password</label>
+			<input type="password" name="password" id="password"/>
+			<img src="images/validation-checkmark.png" class="validation-icon" id="password-validation-icon"></span>
+			<p class="validation-message" id="password-validation-message">
+				wowzer!
+			</p>
+		</div><!-- .form-row -->
+		<input type="hidden" name="password_verify" value="" id="password_verify"/>
 		<input type="button" name="previous" class="previous button" value="Previous" />
-		<input type="submit" name="submit" class="submit button" value="Submit" />
+		<input type="submit" name="submit" class="submit button" value="Submit" id="submit"/>
 	</fieldset>
 </form>
 <script src="http://thecodeplayer.com/uploads/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/zxcvbn.js"></script>
 <script src="animate-fieldsets.js" type="text/javascript"></script>

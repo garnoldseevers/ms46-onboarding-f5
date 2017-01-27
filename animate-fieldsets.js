@@ -10,9 +10,16 @@ var animating;
 $name_valid = false;
 $birth_date_valid = false;
 $sex_valid = false;
+$retirement_age_valid = false;
+$email_valid = false;
+$password_valid = false;
 
 
 $("input[type=text]").keyup(function(){
+	validate(this);
+});
+
+$("input[type=radio]").change(function(){
 	validate(this);
 });
 
@@ -20,10 +27,17 @@ $("#birth-month, #birth-day, #birth-year").change(function(){
 	validate_birth_date();
 });
 
-$("input[type=radio]").change(function(){
-	validate(this);
+$("#retirement-age").change(function(){
+	validate_retirement_age();
 });
 
+$("#email").keyup(function(){
+	validate_email();
+})
+
+$("#password").keyup(function(){
+	validate_password();
+})
 
 function validate($selected_element){
 	$value = $($selected_element).val();
@@ -43,6 +57,25 @@ function validate_birth_date(){
 	$birth_month = $('#birth-month').val();
 	$birth_day = $('#birth-day').val();
 	$birth_year = $('#birth-year').val();
+	if($birth_month == 04 || $birth_month == 06 || $birth_month == 09 || $birth_month == 11){
+		$('#birth-day option[value=31]').css('display','none');
+		$('#birth-day option[value=31]').removeAttr('selected');
+	}
+	if($birth_month == 02){
+		$('#birth-day option[value=31]').css('display','none');
+		$('#birth-day option[value=31]').removeAttr('selected');
+		$('#birth-day option[value=30]').css('display','none');
+		$('#birth-day option[value=30]').removeAttr('selected');
+		if(!is_leap_year($birth_year)){
+			$('#birth-day option[value=29]').css('display','none');
+			$('#birth-day option[value=29]').removeAttr('selected');
+		}else{
+			$('#birth-day option[value=29]').css('display','block');
+		}
+	}else{
+		$('#birth-day option[value=30]').css('display','block');
+		$('#birth-day option[value=31]').css('display','block');
+	}
 	if($birth_month != null && $birth_day != null && $birth_year != null){
 		$birth_date = $birth_year + "-" + $birth_month + "-" + $birth_day;
 		$("#birth_date").val($birth_date);
@@ -58,6 +91,69 @@ function validate_birth_date(){
 		$("#birth-date-validation-message").css('display','none');
 		$birth_date_valid = false;
 	}
+	if(validate_fieldset_one()){
+		activate_button("#next-one");
+	}else{
+		deactivate_button("#next-one");
+	}
+}
+
+function is_leap_year($year)
+{
+  return (($year % 4 == 0) && ($year % 100 != 0)) || ($year % 400 == 0);
+}
+
+function validate_retirement_age(){
+	$birth_year = $('#birth-year').val();
+	$current_year = $current_date.getFullYear();
+	$years_old = parseInt($current_year - $birth_year);
+	$retirement_age = parseInt($('#retirement-age').val());
+	if($retirement_age >= $years_old){
+		$retirement_age_valid = true;
+		$('#retirement-age-validation-icon').css('display','block');
+		$('#retirement-age-validation-message').css('display','none');
+	}else{
+		$years_till_retirement = $years_old - $retirement_age;
+		$retirement_age_valid = false;
+		$('#retirement-age-validation-message').css('display','block');
+		$('#retirement-age-validation-icon').css('display','none');
+		if($years_till_retirement == 1){
+			$('#retirement-age-validation-message .validation-callout').html('1 year');
+		}else{
+			$('#retirement-age-validation-message .validation-callout').html($years_till_retirement + ' years');
+		}
+	}
+	if(validate_fieldset_two()){
+		activate_button("#next-two");
+	}else{
+		deactivate_button("#next-two");
+	}
+}
+
+function validate_email(){
+	$email = $("#email").val();
+	if(regex_email($email)){
+		$email_valid = true;
+		$('#email-validation-icon').css('display','block');
+  		validate_fieldset_three()
+	}else{
+		$email_valid = false;
+		$('#email-validation-icon').css('display','none');
+		validate_fieldset_three()
+	}
+}
+
+function regex_email($email_to_test){
+  	var $email_regex_pattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  	return $email_regex_pattern.test($email_to_test);
+}
+function validate_password(){
+	$password = $("#password").val();
+	$("#password_verify").val($password);
+	zxcvbn($password);
+	alert(result.score);
+	$password_valid = true;
+	validate_fieldset_three()
 }
 
 function validate_fieldset_one(){
@@ -69,10 +165,24 @@ function validate_fieldset_one(){
 }
 
 function validate_fieldset_two(){
-	if($name_valid == true && $birth_date_valid == true && $sex_valid == true){
+	if($retirement_age_valid == true){
 		return true;
+		activate_button("#next-two");
 	}else{
 		return false;
+		deactivate_button("#next-two");
+	}
+}
+
+function validate_fieldset_three(){
+	if($email_valid == true && $password_valid == true){
+		return true;
+		activate_button("#submit");
+		$("#submit").attr('type','submit');
+	}else{
+		return false;
+		deactivate_button("#submit");
+		$("#submit").attr('type','button');
 	}
 }
 
@@ -81,9 +191,22 @@ function activate_button($selected_button){
 	$($selected_button).css('cursor','pointer');
 }
 
+function deactivate_button($selected_button){
+	$($selected_button).css('background-color','#d0d0d0');
+	$($selected_button).css('cursor','default');
+}
+
 $("#next-one").click(function(){
 	if(validate_fieldset_one()){
 		show_next_fieldset(this);
+		validate_retirement_age();
+	}
+});
+
+$("#next-two").click(function(){
+	if(validate_fieldset_two()){
+		show_next_fieldset(this);
+		$("#submit").attr('type','button');
 	}
 });
 
