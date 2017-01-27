@@ -14,6 +14,50 @@ $retirement_age_valid = false;
 $email_valid = false;
 $password_valid = false;
 
+// Create an array of password messages
+var password_message = [];
+// Push objects into password array to store settings
+password_message.push({
+	width: "10px",
+	background: "rgb(254,133,48)",
+	strength_message: "too weak",
+	validation_message: "block",
+	validation_icon: "images/validation-x.png",
+	valid: false
+});
+password_message.push({
+	width: "25px",
+	background: "rgb(255, 167, 114)",
+	strength_message: "could be better",
+	validation_message: "block",
+	validation_icon: "images/validation-x.png",
+	valid: false
+});
+password_message.push({
+	width: "50px",
+	background: "rgb(167, 205, 82)",
+	strength_message: "shows potential",
+	validation_message: "none",
+	validation_icon: "images/validation-checkmark.png",		
+	valid: true
+});
+password_message.push({
+	width: "100px",
+	background: "rgb(136, 186, 39)",
+	strength_message: "well played",
+	validation_message: "none",
+	validation_icon: "images/validation-checkmark.png",	
+	valid: true
+});
+password_message.push({
+	width: "150px",
+	background: "rgb(104, 141, 26)",
+	strength_message: "wowzer",
+	validation_message: "none",
+	validation_icon: "images/validation-checkmark.png",	
+	valid: true
+});
+
 $(document).ready(function(){
 	$('.next, .submit').removeClass("active");
 	$('.next, .submit').addClass("inactive");
@@ -25,6 +69,14 @@ $("input[type=text]").keyup(function(){
 
 $("input[type=radio]").change(function(){
 	validate(this);
+});
+
+$("input[type=radio]").change(function(){
+	validate(this);
+});
+
+$("input[type=date]").change(function(){
+	validate_birth_date_mobile();
 });
 
 $("#birth-month, #birth-day, #birth-year").change(function(){
@@ -57,7 +109,29 @@ function validate($selected_element){
 		activate_button("#next-one");
 	}
 }
-
+function validate_birth_date_mobile(){
+	$birth_date_value = $('#birth_date').val();
+	if($birth_date_value != null){
+		$current_date = new Date();
+		$current_year = $current_date.getFullYear();
+		$birth_date = new Date($birth_date_value);
+		$birth_year = $birth_date.getFullYear();
+		$years_old = $current_year - $birth_year;
+		$("#birth_age").html($years_old);
+		$("#birth-date-validation-icon").css('display','block');
+		$("#birth-date-validation-message").css('display','block');
+		$birth_date_valid = true;
+	}else{
+		$("#birth-date-validation-icon").css('display','none');
+		$("#birth-date-validation-message").css('display','none');
+		$birth_date_valid = false;
+	}
+	if(validate_fieldset_one()){
+		activate_button("#next-one");
+	}else{
+		deactivate_button("#next-one");
+	}
+}
 function validate_birth_date(){
 	$birth_month = $('#birth-month').val();
 	$birth_day = $('#birth-day').val();
@@ -109,19 +183,22 @@ function is_leap_year($year)
 }
 
 function validate_retirement_age(){
-	$birth_year = $('#birth-year').val();
+	$birth_date_value = $('#birth_date').val();
+	$birth_date = new Date($birth_date_value);
+	$birth_year = $birth_date.getFullYear();
 	$current_year = $current_date.getFullYear();
 	$years_old = parseInt($current_year - $birth_year);
 	$retirement_age = parseInt($('#retirement-age').val());
 	if($retirement_age >= $years_old){
 		$retirement_age_valid = true;
 		$('#retirement-age-validation-icon').css('display','block');
+		$('#retirement-age-validation-icon').attr('src','images/validation-checkmark.png');
 		$('#retirement-age-validation-message').css('display','none');
 	}else{
 		$years_till_retirement = $years_old - $retirement_age;
 		$retirement_age_valid = false;
 		$('#retirement-age-validation-message').css('display','block');
-		$('#retirement-age-validation-icon').css('display','none');
+		$('#retirement-age-validation-icon').attr('src','images/validation-x.png');
 		if($years_till_retirement == 1){
 			$('#retirement-age-validation-message .validation-callout').html('1 year');
 		}else{
@@ -154,100 +231,14 @@ function validate_password(){
 	var password_field_value = password_field.value;
 	var result = zxcvbn(password_field_value);
 	var password_strength = result.score;
-	$password_messages = [
-		{
-			width: "10px",
-			background: "rgb(254,133,48)",
-			strength_message: "too weak",
-			validation_message: "block",
-			validation_icon: "validation-x.png"
-			valid: "false"
-		},
-		{
-			width: "25px",
-			background: "rgb(255, 167, 114)",
-			strength_message: "too weak",
-			validation_message: "block",
-			validation_icon: "validation-x.png"
-			valid: "false"
-		},
-		{
-			width: "50px",
-			background: "rgb(167, 205, 82)",
-			strength_message: "too weak",
-			validation_message: "none",
-			validation_icon: "validation-checkmark.png"			
-			valid: "true"
-		},
-		{
-			width: "100px",
-			background: "rgb(136, 186, 39)",
-			strength_message: "too weak",
-			validation_message: "none",
-			validation_icon: "validation-checkmark.png"			
-			valid: "true"
-		},
-		{
-			width: "150px",
-			background: "rgb(104, 141, 26)",
-			strength_message: "too weak",
-			validation_message: "none",
-			validation_icon: "validation-checkmark.png"			
-			valid: "true"
-		},
-	];
-
-	$("#password-strength-bar").css('width',$password_messages[$password_strength].width);
-	$("#password-strength-bar").css('background-color',$password_messages[$password_strength].background);
-	$("#password-strength-message").html($password_messages[$password_strength].strength_message);
-	$("#password-validation-message").css('display',$password_messages[$password_strength].validation_message);
-	$("#password").siblings(".validation-icon").attr('src',$password_messages[$password_strength].validation_icon);
-	$password_valid = $password_messages[$password_strength].valid;
-	/*switch(password_strength){
-		case 0:
-			$("#password-strength-bar").css('width','10px');
-			$("#password-strength-bar").css('background-color','rgb(254, 133, 48)');
-			$("#password-strength-message").html("too weak");
-			$("#password-validation-message").html("Try adding numbers, symbols, or different case letters");
-			$("#password-validation-message").css('display','block');
-			$("#password").siblings(".validation-icon").css('display','block');
-			$password_valid = false;
-			break;
-		case 1:
-			$("#password-strength-bar").css('width','25px');
-			$("#password-strength-bar").css('background-color','rgb(255, 167, 114)');
-			$("#password-strength-message").html("could be better");
-			$("#password-validation-message").html("Try adding numbers, symbols, or different case letters");
-			$("#password-validation-message").css('display','block');
-			$("#password").siblings(".validation-icon").css('display','block');
-			$password_valid = false;
-			break;
-		case 2:
-			$("#password-strength-bar").css('width','50px');
-			$("#password-strength-bar").css('background-color','rgb(167, 205, 82)');
-			$("#password-strength-message").html("shows potential");
-			$("#password-validation-message").css('display','none');
-			$("#password").siblings(".validation-icon").css('display','block');
-			$password_valid = true;
-			break;
-		case 3:
-			$("#password-strength-bar").css('width','100px');
-			$("#password-strength-bar").css('background-color','rgb(136, 186, 39)');
-			$("#password-strength-message").html("well played");
-			$("#password-validation-message").css('display','none');
-			$("#password").siblings(".validation-icon").css('display','block');
-			$password_valid = true;
-			break;
-		case 4:
-			$("#password-strength-bar").css('width','150px');
-			$("#password-strength-bar").css('background-color','rgb(104, 141, 26)');
-			$("#password-strength-message").html("wowzer");
-			$("#password-validation-message").css('display','none');
-			$("#password").siblings(".validation-icon").css('display','block');
-			$password_valid = true;
-			break;
-	}
-	*/
+	// Set display of password message by accesing object values with password strength as index
+	$("#password-strength-bar").css('width',password_message[password_strength].width);
+	$("#password-strength-bar").css('background-color',password_message[password_strength].background);
+	$("#password-strength-message").html(password_message[password_strength].strength_message);
+	$("#password-validation-message").css('display',password_message[password_strength].validation_message);
+	$("#password").siblings(".validation-icon").css('display','block');
+	$("#password").siblings(".validation-icon").attr('src',password_message[password_strength].validation_icon);
+	$password_valid = password_message[password_strength].valid;
 	validate_fieldset_three()
 }
 

@@ -7,6 +7,9 @@
 }
 
 /* General */
+.desktop{
+	display: none;
+}
 html{
 	height: 100%;
 	background-color: #ffffff;
@@ -14,7 +17,7 @@ html{
 body{
 	font-family: "Open Sans", Arial, sans-serif;
 	background-color: #ffffff;
-	background-image: url("images/leaf-background.png");
+	background-image: url("../images/leaf-background.png");
 	background-position: top right;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
@@ -204,16 +207,19 @@ select{
 	color: #a0a0a0;
 }
 #birth-month-select-container{
-	width: 49%;
+	width: 44%;
 	float: left;
+	margin-right: 2%;
 	margin-bottom: 2%;
 }
 #birth-day-select-container{
-	width: 49%;
-	float: right;
+	width: 26%;
+	float: left;
+	margin-right: 2%;
 }
 #birth-year-select-container{
-	clear: both;
+	width: 26%;
+	float: left;
 }
 #retirement-age-row{
 	width: 100px;
@@ -269,7 +275,7 @@ input[type="radio"]{
 	cursor: pointer;
 }
 #radio-button-label-man{
-	background-image: url("images/gender-sprite.png");
+	background-image: url("../images/gender-sprite.png");
 	background-position: 0px 0px;
 	background-repeat: no-repeat;
 }
@@ -277,7 +283,7 @@ input[type="radio"]{
 	background-position: 0px -75px;
 }
 #radio-button-label-woman{
-	background-image: url("images/gender-sprite.png");
+	background-image: url("../images/gender-sprite.png");
 	background-position: 75px 0px;
 }
 #radio-button-woman:checked ~ #radio-button-label-woman{
@@ -396,6 +402,12 @@ input[type="radio"]{
 }
 /* Desktop */
 @media only screen and (min-device-width: 480px){
+	.mobile{
+		display: none;
+	}
+	.desktop{
+		display: block;
+	}
 	body{
 		max-width: 100%;
 		/* Prevent the horizontal scrollbar appearing when animating in elements positioned off-screen */
@@ -486,6 +498,7 @@ input[type="radio"]{
 		text-align: center;
 		max-width: 200px;
 		margin: 0 auto;
+		margin-bottom: 25px;
 	}
 
 	/* Buttons */
@@ -532,7 +545,8 @@ input[type="radio"]{
 	/* Norton Seal */
 	#norton-seal{
 		max-width: 25%;
-		margin-top: 50px;
+		padding-top: 50px;
+		clear: both;
 	}
 }
 
