@@ -6,13 +6,93 @@ var left;
 var opacity;
 var scale;
 var animating;
+// initialize validation variables
+$name_valid = false;
+$birth_date_valid = false;
+$sex_valid = false;
 
-$(".next").click(function(){
+
+$("input[type=text]").keyup(function(){
+	validate(this);
+});
+
+$("#birth-month, #birth-day, #birth-year").change(function(){
+	validate_birth_date();
+});
+
+$("input[type=radio]").change(function(){
+	validate(this);
+});
+
+
+function validate($selected_element){
+	$value = $($selected_element).val();
+	if($value != ""){
+		$this_name = $($selected_element).attr("name");
+		window["$" + $this_name + "_valid"] = true;
+		$($selected_element).siblings(".validation-icon").css('display','block');
+	}else{
+		window["$" + $this_name + "_valid"] = false;
+	}
+	if(validate_fieldset_one()){
+		activate_button("#next-one");
+	}
+}
+
+function validate_birth_date(){
+	$birth_month = $('#birth-month').val();
+	$birth_day = $('#birth-day').val();
+	$birth_year = $('#birth-year').val();
+	if($birth_month != null && $birth_day != null && $birth_year != null){
+		$birth_date = $birth_year + "-" + $birth_month + "-" + $birth_day;
+		$("#birth_date").val($birth_date);
+		$current_date = new Date();
+		$current_year = $current_date.getFullYear();
+		$years_old = $current_year - $birth_year;
+		$("#birth_age").html($years_old);
+		$("#birth-date-validation-icon").css('display','block');
+		$("#birth-date-validation-message").css('display','block');
+		$birth_date_valid = true;
+	}else{
+		$("#birth-date-validation-icon").css('display','none');
+		$("#birth-date-validation-message").css('display','none');
+		$birth_date_valid = false;
+	}
+}
+
+function validate_fieldset_one(){
+	if($name_valid == true && $birth_date_valid == true && $sex_valid == true){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function validate_fieldset_two(){
+	if($name_valid == true && $birth_date_valid == true && $sex_valid == true){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function activate_button($selected_button){
+	$($selected_button).css('background-color','#6c9d1b');
+	$($selected_button).css('cursor','pointer');
+}
+
+$("#next-one").click(function(){
+	if(validate_fieldset_one()){
+		show_next_fieldset(this);
+	}
+});
+
+function show_next_fieldset($clicked_button){
 	if(animating) return false;
 	animating = true;
 	
-	current_fieldset = $(this).parent();
-	next_fieldset = $(this).parent().next();
+	current_fieldset = $($clicked_button).parent();
+	next_fieldset = $($clicked_button).parent().next();
 	
 	//activate next step on progress-bar using the index of next_fieldset
 	$("#progress-bar li").eq($("fieldset").index(next_fieldset)).addClass("active");
@@ -34,7 +114,7 @@ $(".next").click(function(){
 		}, 
 		easing: 'swing'
 	});
-});
+}
 
 $(".previous").click(function(){
 	if(animating) return false;

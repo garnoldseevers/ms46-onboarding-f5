@@ -25,6 +25,17 @@ body{
 	display: table;
 }
 
+/* Top Menu */
+#sign-in-link{
+	position: absolute;
+	top: 0px; 
+	right: 0px;
+	padding: 5px 10px;
+	font-size: 14px;
+	color: #a0a0a0;
+	text-decoration: none;
+}
+
 /* Logo */
 #blooom-emblem{
 	display: block;
@@ -92,23 +103,24 @@ body{
 	position: relative;
 	margin: 0px auto;
 	padding: 25px 0px;
+	padding-top: 15px;
 	text-align: center;
 }
 
 /* Typography */
-#onboarding-form .headline{
+.headline{
 	font-size: 16px;
 	font-weight: 700;
 	text-transform: uppercase;
 	color: #6c9d1b;
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 }
-#onboarding-form .headline .light{
+.headline .light{
 	display: block;
 	font-weight: 300;
 	font-size: 14px;
 }
-#onboarding-form .subhead{
+.subhead{
 	font-family: "Open Sans", Arial, sans-serif;
 	font-weight: normal;
 	font-size: 14px;
@@ -116,16 +128,20 @@ body{
 	color: #7f7f7f;
 	margin-bottom: 20px;
 }
-#onboarding-form label{
+label{
 	display: block;
 	padding-bottom: 5px;
 	font-family: "Open Sans", "Open Sans", Arial, sans-serif;
 	font-size: 16px;
 	color: #8d8e90;
 }
+label .required{
+	color: #ff8a19;
+	padding-right: 5px;
+}
 
 /* Fieldsets */
-#onboarding-form fieldset{
+fieldset{
 	width: 70%;
 	box-sizing: border-box;
 	position: absolute;
@@ -134,16 +150,21 @@ body{
 	padding: 0px;
 	padding-bottom: 50px;
 }
-#onboarding-form fieldset:not(:first-of-type){
+fieldset:not(:first-of-type){
 	display: none;
 }
 
+/* Form Rows */
+.form-row{
+	position: relative;
+	margin-bottom: 10px;
+}
+
 /* Inputs */
-#onboarding-form input, 
-#onboarding-form textarea{
+input, 
+textarea{
 	width: 100%;
 	box-sizing: border-box;
-	margin-bottom: 15px;
 	border-style: solid;
 	border-width: 2px;
 	border-color: #80b729;
@@ -153,17 +174,112 @@ body{
 	font-size: 14px;
 	font-weight: 300;
 	color: #bababa;
+	-webkit-appearance: none;
+	-moz-appearance: none;
 }
-#onboarding-form input[type="radio"]{
-	display: inline;
-	width: 25px;
-	height: 25px;
-	margin-left: 25px;
-	margin-right: 10px;
+select{
+	width: 100%;
+	box-sizing: border-box;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #80b729;
+	padding: 10px 15px;
+	border-radius: 5px;
+	font-family: "Open Sans", Arial, sans-serif;
+	font-size: 14px;
+	font-weight: 300;
+	color: #bababa;
+	-webkit-appearance: none;
+	-moz-appearance: none;
 }
-
+.select-container{
+	width: 100%;
+	position: relative;
+	border: none;
+	border-radius: 5px;
+	font-family: "Open Sans", Arial, sans-serif;
+	font-size: 14px;
+	font-weight: 300;
+	color: #bababa;
+}
+#birth-month-select-container{
+	width: 49%;
+	float: left;
+	margin-bottom: 2%;
+}
+#birth-day-select-container{
+	width: 49%;
+	float: right;
+}
+#birth-year-select-container{
+	clear: both;
+}
+.select-arrow{
+	width: 8px;
+    height: 8px;
+    border-left: 2px solid #80b729;
+    border-bottom: 2px solid #80b729;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    position: absolute;
+    top: 0.9em;
+    right: 0.9em;
+}
+#onboarding-form.valid .select-arrow{
+    border-left: 2px solid #FFF;
+    border-bottom: 2px solid #FFF;
+}
+.radio-button-container{
+	float: left;
+	width: 50%;
+	position: relative;
+	text-align: center;
+	font-family: "Open Sans", Arial, sans-serif;
+	font-size: 14px;
+	font-weight: 300;
+	color: #bababa;
+	overflow: hidden;
+}
+input[type="radio"]{
+	position: absolute;
+	height: 1px;
+	width: 1px;
+	top: -99px;
+	left: -99px;
+}
+.radio-button-label{
+	display: block;
+	width: 75px;
+	height: 75px;
+	margin: 0 auto;
+	paddng: 0px;
+	border: 0px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #80b729;
+	border-radius: 5px;
+	padding: 0px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	cursor: pointer;
+}
+#radio-button-label-man{
+	background-image: url("images/gender-sprite.png");
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
+}
+#radio-button-man:checked ~ #radio-button-label-man{
+	background-position: 0px -75px;
+}
+#radio-button-label-woman{
+	background-image: url("images/gender-sprite.png");
+	background-position: 75px 0px;
+}
+#radio-button-woman:checked ~ #radio-button-label-woman{
+	background-position: 75px 75px;
+}
 /* Buttons */
-#onboarding-form .button{
+.button{
 	position: fixed;
 	bottom: 0px;
 	left: 0px;
@@ -175,11 +291,16 @@ body{
 	font-size: 28px;
 	text-transform: lowercase;
 	color: #ffffff;
-	background-color: #6c9d1b;
 	cursor: pointer;
 	-webkit-appearance: none;
+	-moz-appearance: none;
 }
-#onboarding-form .button.previous{
+.button.next,
+.button.submit{
+	background-color: #d0d0d0;
+	cursor: default;
+}
+.button.previous{
 	display: inline-block;
 	width: auto;
 	position: fixed;
@@ -192,12 +313,13 @@ body{
 	color: #a0a0a0;
 	text-decoration: underline;
 	background: none;
+	opacity: 1;
 }
-#onboarding-form .button:hover, 
-#onboarding-form .button:focus{
+.button:hover, 
+.button:focus{
 	background-color: #555555;
 }
-#onboarding-form .cta-container{
+.cta-container{
 	width: 90%;
 	padding: 5%;
 	position: fixed;
@@ -207,6 +329,28 @@ body{
 	border-width: 1px;
 	border-color: #bababa;
 }
+/* Validation */
+.validation-icon{
+	display: none;
+	width: 20px;
+	position: absolute;
+	top: 20px;
+	right: -7px;
+}
+.validation-message{
+	display: none;
+	font-size: 12px;
+	color: #b6b6b6;
+	font-style: italic;
+	font-weight: 300;
+}
+.validation-callout{
+	margin-left: 5px;
+	font-size: 12px;
+	color: #ff8a19;
+	font-style: normal;
+	font-weight: 900;
+}
 /* Norton Seal */
 #norton-seal{
 	display: block;
@@ -215,19 +359,19 @@ body{
 }
 /* Desktop */
 @media screen and(min-width: 480px){
-	#onboarding-form .button{
+	.button{
 		bottom: 25px;
 		padding: 10px 25px;
 		border-radius: 5px;
 		font-size: 28px;
 	}
-	#onboarding-form .button.next,
-	#onboarding-form .button.submit{
+	.button.next,
+	.button.submit{
 		right: 0px;
 		border-top-right-radius: 0px;
 		border-bottom-right-radius: 0px;
 	}
-	#onboarding-form .button.previous{
+	.button.previous{
 		left: 0px;
 		border-top-left-radius: 0px;
 		border-bottom-left-radius: 0px;
