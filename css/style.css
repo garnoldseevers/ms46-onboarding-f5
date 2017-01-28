@@ -240,6 +240,14 @@ select{
     border-left: 2px solid #FFF;
     border-bottom: 2px solid #FFF;
 }
+
+/* Gender */
+#gender-row{
+	text-align: center;
+	max-width: 130px;
+	margin: 0 auto;
+	margin-bottom: 15px;
+}
 .radio-button-container{
 	float: left;
 	width: 50%;
@@ -260,8 +268,8 @@ input[type="radio"]{
 }
 .radio-button-label{
 	display: block;
-	width: 75px;
-	height: 75px;
+	width: 50px;
+	height: 50px;
 	margin: 0 auto;
 	padding: 0px;
 	border: 0px;
@@ -270,24 +278,29 @@ input[type="radio"]{
 	border-color: #80b729;
 	border-radius: 5px;
 	padding: 0px;
+	font-size: 12px;
+	line-height: 85px;
+	color: #7fb742;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	cursor: pointer;
 }
 #radio-button-label-man{
-	background-image: url("../images/gender-sprite.png");
+	background-image: url("../images/gender-sprite-r3.png");
 	background-position: 0px 0px;
 	background-repeat: no-repeat;
 }
 #radio-button-man:checked ~ #radio-button-label-man{
-	background-position: 0px -75px;
+	background-position: 0px -50px;
+	color: #ffffff;
 }
 #radio-button-label-woman{
-	background-image: url("../images/gender-sprite.png");
-	background-position: 75px 0px;
+	background-image: url("../images/gender-sprite-r3.png");
+	background-position: 50px 0px;
 }
 #radio-button-woman:checked ~ #radio-button-label-woman{
-	background-position: 75px 75px;
+	background-position: 50px 50px;
+	color: #ffffff;
 
 }
 /* Password */
@@ -397,8 +410,9 @@ input[type="radio"]{
 /* Norton Seal */
 #norton-seal{
 	display: block;
-	margin: 0 auto;
 	max-width: 33%;
+	margin: 0 auto;
+	padding-top: 5px;
 }
 /* Desktop */
 @media only screen and (min-device-width: 480px){
@@ -456,7 +470,7 @@ input[type="radio"]{
 		margin-bottom: 25px;
 	}
 	label{
-		margin-bottom: 15px;
+		margin-bottom: 5px;
 		clear: both;
 	}
 	/* Fieldsets */
@@ -480,27 +494,46 @@ input[type="radio"]{
 		width: 30%;
 		float: left;
 		margin-right: 5%;
-		margin-bottom: 2%;
+		margin-bottom: 25px;
 	}
 	#birth-day-select-container{
 		width: 30%;
 		margin-right: 5%;
 		float: left;
+		margin-bottom: 25px;
 	}
 	#birth-year-select-container{
 		width: 30%;
 		float: left;
 		clear: none;
+		margin-bottom: 25px;
 	}
 
 	/* Gender */
 	#gender-row{
-		text-align: center;
 		max-width: 200px;
-		margin: 0 auto;
 		margin-bottom: 25px;
 	}
-
+	.radio-button-label{
+		width: 75px;
+		height: 75px;
+		font-size: 14px;
+		line-height: 125px;
+	}
+	#radio-button-label-man{
+		background-image: url("../images/gender-sprite.png");
+		background-position: 0px 0px;
+	}
+	#radio-button-man:checked ~ #radio-button-label-man{
+		background-position: 0px -75px;
+	}
+	#radio-button-label-woman{
+		background-image: url("../images/gender-sprite.png");
+		background-position: 75px 0px;
+	}
+	#radio-button-woman:checked ~ #radio-button-label-woman{
+		background-position: 75px 75px;
+	}
 	/* Buttons */
 	.button,
 	button.next,

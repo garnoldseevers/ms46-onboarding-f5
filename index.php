@@ -21,11 +21,11 @@
 			<label for="sex">I am a...</label>
 			<div class="radio-button-container">
 				<input type="radio" name="sex" value="m" id="radio-button-man"/>
-				<label for="radio-button-man" class="radio-button-label" id="radio-button-label-man"></label>Man
+				<label for="radio-button-man" class="radio-button-label" id="radio-button-label-man">Man</label>
 			</div>
 			<div class="radio-button-container">
 				<input type="radio" name="sex" value="f" id="radio-button-woman"/>
-				<label for="radio-button-woman" class="radio-button-label" id="radio-button-label-woman"></label>Woman
+				<label for="radio-button-woman" class="radio-button-label" id="radio-button-label-woman">Woman</label>
 			</div>
 		</div><!-- .form-row -->
 		<div class="form-row" id="birth-date-row">
@@ -95,12 +95,7 @@
 			</p>
 			<img src="images/validation-checkmark.png" class="validation-icon" id="birth-date-validation-icon"></span>
 		</div><!-- .form-row -->
-		<img src="images/norton-seal.png" alt="Norton Secured powered by VeriSign" id="norton-seal"/>
-		<div class="next button active" id="next-one"/>Next<span class="button-arrow"></span></div>
-	</fieldset>
-	<fieldset>
-		<h2 class="headline">Retirement Goals</h2>
-		<label for="sex">I'd like to smash my alarm clock at age...</label>
+		<label for="retirement-age">I'd like to retire at age...</label>
 		<div class="form-row" id="retirement-age-row">
 			<div class="select-container">
 				<div class="select-arrow"></div>
@@ -115,16 +110,12 @@
 				</select>
 			</div><!-- .select-container -->
 			<img src="images/validation-checkmark.png" class="validation-icon" id="retirement-age-validation-icon"></span>
-			<p class="validation-message" id="retirement-age-validation-message">
-				You aren't going to retire <span class="validation-callout" id="years_ago">2 years</span> ago, it's just not going to happen!
-			</p>
 		</div><!-- .form-row -->
-		<div class="previous button"/>
-			<span class="button-arrow"></span>Previous
-		</div>
-		<div class="next button active" id="next-two"/>
-			Next<span class="button-arrow"></span>
-		</div>
+		<p class="validation-message" id="retirement-age-validation-message">
+			You aren't going to retire <span class="validation-callout" id="years_ago">2 years</span> ago, it's just not going to happen!
+		</p>
+		<img src="images/norton-seal.png" alt="Norton Secured powered by VeriSign" id="norton-seal"/>
+		<div class="next button active" id="next-one"/>Next<span class="button-arrow"></span></div>
 	</fieldset>
 	<fieldset>
 		<h2 class="headline"><span class="light">First Things First.</span> Let's Make Sure We Keep You Safe</h2>

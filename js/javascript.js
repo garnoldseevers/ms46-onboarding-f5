@@ -77,10 +77,16 @@ $("input[type=radio]").change(function(){
 
 $("input[type=date]").change(function(){
 	validate_birth_date_mobile();
+	if($('.desktop').length){
+		$('.desktop').remove();
+	}
 });
 
 $("#birth-month, #birth-day, #birth-year").change(function(){
 	validate_birth_date();
+	if($('.mobile').length){
+		$('.mobile').remove();
+	}
 });
 
 $("#retirement-age").change(function(){
@@ -126,6 +132,7 @@ function validate_birth_date_mobile(){
 		$("#birth-date-validation-message").css('display','none');
 		$birth_date_valid = false;
 	}
+	validate_retirement_age();
 	if(validate_fieldset_one()){
 		activate_button("#next-one");
 	}else{
@@ -170,6 +177,7 @@ function validate_birth_date(){
 		$("#birth-date-validation-message").css('display','none');
 		$birth_date_valid = false;
 	}
+	validate_retirement_age();
 	if(validate_fieldset_one()){
 		activate_button("#next-one");
 	}else{
@@ -186,6 +194,7 @@ function validate_retirement_age(){
 	$birth_date_value = $('#birth_date').val();
 	$birth_date = new Date($birth_date_value);
 	$birth_year = $birth_date.getFullYear();
+	$current_date = new Date();
 	$current_year = $current_date.getFullYear();
 	$years_old = parseInt($current_year - $birth_year);
 	$retirement_age = parseInt($('#retirement-age').val());
@@ -205,10 +214,10 @@ function validate_retirement_age(){
 			$('#retirement-age-validation-message .validation-callout').html($years_till_retirement + ' years');
 		}
 	}
-	if(validate_fieldset_two()){
-		activate_button("#next-two");
+	if(validate_fieldset_one()){
+		activate_button("#next-one");
 	}else{
-		deactivate_button("#next-two");
+		deactivate_button("#next-one");
 	}
 }
 
@@ -217,11 +226,11 @@ function validate_email(){
 	if(regex_email($email)){
 		$email_valid = true;
 		$('#email-validation-icon').css('display','block');
-  		validate_fieldset_three()
+  		validate_fieldset_two()
 	}else{
 		$email_valid = false;
 		$('#email-validation-icon').css('display','none');
-		validate_fieldset_three()
+		validate_fieldset_two()
 	}
 }
 
@@ -239,7 +248,7 @@ function validate_password(){
 	$("#password").siblings(".validation-icon").css('display','block');
 	$("#password").siblings(".validation-icon").attr('src',password_message[password_strength].validation_icon);
 	$password_valid = password_message[password_strength].valid;
-	validate_fieldset_three()
+	validate_fieldset_two()
 }
 
 
@@ -250,7 +259,7 @@ function regex_email($email_to_test){
 
 
 function validate_fieldset_one(){
-	if($name_valid == true && $birth_date_valid == true && $sex_valid == true){
+	if($name_valid == true && $birth_date_valid == true && $sex_valid == true && $retirement_age_valid == true){
 		return true;
 	}else{
 		return false;
@@ -258,16 +267,6 @@ function validate_fieldset_one(){
 }
 
 function validate_fieldset_two(){
-	if($retirement_age_valid == true){
-		return true;
-		activate_button("#next-two");
-	}else{
-		return false;
-		deactivate_button("#next-two");
-	}
-}
-
-function validate_fieldset_three(){
 	if($email_valid == true && $password_valid == true){
 		$("#submit").attr('type','submit');
 		activate_button("#submit");
@@ -291,13 +290,6 @@ function deactivate_button($selected_button){
 
 $("#next-one").click(function(){
 	if(validate_fieldset_one()){
-		show_next_fieldset(this);
-		validate_retirement_age();
-	}
-});
-
-$("#next-two").click(function(){
-	if(validate_fieldset_two()){
 		show_next_fieldset(this);
 		$("#submit").attr('type','button');
 	}
