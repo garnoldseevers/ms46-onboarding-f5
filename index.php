@@ -13,7 +13,7 @@
 	<fieldset>
 		<h2 class="headline"><span class="light">We'd Fill This Out For You</span> But We Don't Have E.S.P.</h2>
 		<div class="form-row">
-			<label for="name">My first name is...</label>
+			<label for="name" autofocus>My first name is...</label>
 			<input type="text" name="name" placeholder="First Name" value="" required/>
 			<img src="images/validation-checkmark.png" class="validation-icon"></span>
 		</div><!-- .form-row -->
