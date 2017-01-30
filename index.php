@@ -22,11 +22,11 @@
 		</div><!-- .form-row -->
 		<div class="form-row clearfix" id="gender-row">
 			<label for="sex">I am a...</label>
-			<div class="radio-button-container">
+			<div class="radio-button-container" id="sex-m-container">
 				<input type="radio" name="sex" value="m" id="radio-button-man"/>
 				<label for="radio-button-man" class="radio-button-label" id="radio-button-label-man">Man</label>
 			</div>
-			<div class="radio-button-container">
+			<div class="radio-button-container" id="sex-f-container">
 				<input type="radio" name="sex" value="f" id="radio-button-woman"/>
 				<label for="radio-button-woman" class="radio-button-label" id="radio-button-label-woman">Woman</label>
 			</div>
@@ -97,7 +97,7 @@
 				</div><!-- .select-container -->
 			</div><!-- .desktop -->
 			<input type="hidden" name="birth_date" id="birth_date"/>
-			<p class="validation-message" id="birth-date-age-display">
+			<p class="additional-info" id="birth-date-age-display">
 				So you're saying you are <span class="validation-callout" id="birth_age">15</span>
 			</p>
 			<p class="validation-message" id="birth-date-validation-message">
@@ -121,8 +121,8 @@
 			</div><!-- .select-container -->
 			<img src="images/validation-checkmark.png" class="validation-icon" id="retirement-age-validation-icon"></span>
 		</div><!-- .form-row -->
-		<p class="validation-message" id="retirement-age-validation-message">
-			You aren't going to retire <span class="validation-callout" id="years_ago">2 years</span> ago, it's just not going to happen!
+		<p class="additional-info error" id="retirement-age-display">
+			You aren't going to retire <span class="validation-callout" id="years-ago">2 years</span> ago, it's just not going to happen!
 		</p>
 		<img src="images/norton-seal.png" alt="Norton Secured powered by VeriSign" id="norton-seal"/>
 		<div class="next button active" id="next-one"/>Next<span class="button-arrow"></span></div>

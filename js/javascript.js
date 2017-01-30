@@ -13,6 +13,9 @@ var sex_valid = false;
 var retirement_age_valid = false;
 var email_valid = false;
 var password_valid = false;
+// initialize time
+var current_date = new Date();
+var current_year = current_date.getFullYear();
 
 // initialize javascript enabled state of form
 $(document).ready(function(){
@@ -32,7 +35,11 @@ $("#name").keyup(function(){
 		deactivate_button("#next-one");
 	}
 });
-
+$('select').change(function(){
+	$(this).css('background-color','#80b729');
+	$(this).css('color','#ffffff');
+	$(this).siblings(".select-arrow").css('border-color','#ffffff');
+});
 $("input[type=radio]").change(function(){
 	validate(this);
 	validate_gender();
@@ -70,24 +77,33 @@ function validate(selected_element){
 	// Test to see if value of selected element is empty
 	if(selected_element_value == "" || selected_element_value == null){
 		window[selected_element_name + "_valid"] = false;
-		$(selected_element).siblings(".validation-icon").attr('src','images/validation-x.png');
-		$(selected_element).siblings(".validation-message").css('display','block');
+		display_validation_messages(selected_element_id,false);
 	}else{
 		window[selected_element_name + "_valid"] = true;
-		$(selected_element).siblings(".validation-icon").attr('src','images/validation-checkmark.png');
-		$(selected_element).siblings(".validation-message").css('display','none');
+		display_validation_messages(selected_element_id,true);
+	}
+}
+
+function display_validation_messages(selected_element_id, validation_result){
+	if(validation_result == true){
+		$(selected_element_id).siblings(".validation-icon").attr('src','images/validation-checkmark.png');
+		$(selected_element_id).siblings(".validation-icon").css('display','block');
+		$(selected_element_id).siblings(".validation-message").css('display','none');
+		$(selected_element_id).siblings(".additional-info").css('display','block');
+		$(selected_element_id).siblings(".error").css('display','none');
+	}else{
+		$(selected_element_id).siblings(".validation-icon").attr('src','images/validation-x.png');
+		$(selected_element_id).siblings(".validation-icon").css('display','block');
+		$(selected_element_id).siblings(".validation-message").css('display','block');
+		$(selected_element_id).siblings(".additional-info").css('display','block');
 	}
 }
 
 function validate_gender(){
 	if(sex_valid == false){
-		$('#gender-row .validation-message').css('display','block');
-		$('#gender-row .validation-icon').attr('src','images/validation-x.png');
-		$('#gender-row .validation-icon').css('display','block');
+		display_validation_messages("#sex-f-container",false);
 	}else{
-		$('#gender-row .validation-message').css('display','none');
-		$('#gender-row .validation-icon').attr('src','images/validation-checkmark.png');
-		$('#gender-row .validation-icon').css('display','none');
+		display_validation_messages("#sex-f-container",true);
 	}
 
 }
@@ -98,21 +114,19 @@ function sanitize_input(input_value){
     return sanitized_string;
 }
 function validate_birth_date_mobile(){
-	$birth_date_value = $('#birth_date_mobile').val();
-	$("#birth_date").val($birth_date_value);
-	if($birth_date_value != null){
-		$current_date = new Date();
-		$current_year = $current_date.getFullYear();
-		$birth_date = new Date($birth_date_value);
-		$birth_year = $birth_date.getFullYear();
-		$years_old = $current_year - $birth_year;
-		$("#birth_age").html($years_old);
+	var birth_date_value = document.getElementById("birth_date_mobile").value;
+	document.getElementById("birth_date").value = birth_date_value;
+	if(birth_date_value != null && !isNaN(birth_date_value)){
+		birth_date = new Date(birth_date_value);
+		birth_year = birth_date.getFullYear();
+		years_old = current_year - birth_year;
+		document.getElementById("birth_age").innerHTML = years_old;
 		$("#birth-date-validation-icon").css('display','block');
 		$("#birth-date-age-display").css('display','block');
 		birth_date_valid = true;
 	}else{
 		$("#birth-date-validation-icon").css('display','none');
-		$("#birth-date-age-dsiplay").css('display','none');
+		$("#birth-date-age-display").css('display','none');
 		birth_date_valid = false;
 	}
 	validate_retirement_age();
@@ -149,9 +163,7 @@ function validate_birth_date(){
 	if($birth_month != null && $birth_day != null && $birth_year != null){
 		$birth_date = $birth_year + "-" + $birth_month + "-" + $birth_day;
 		$("#birth_date").val($birth_date);
-		$current_date = new Date();
-		$current_year = $current_date.getFullYear();
-		$years_old = $current_year - $birth_year;
+		$years_old = current_year - $birth_year;
 		$("#birth_age").html($years_old);
 		$("#birth-date-validation-icon").css('display','block');
 		$("#birth-date-age-display").css('display','block');
@@ -175,30 +187,30 @@ function is_leap_year($year)
 }
 
 function validate_retirement_age(){
-	birth_month_value = document.getElementById("birth-month").value;
-	birth_day_value = document.getElementById("birth-day").value;
-	birth_year_value = document.getElementById("birth-year").value;
-	$birth_date_value = $('#birth_date').val();
-	$birth_date = new Date($birth_date_value);
-	$birth_year = $birth_date.getFullYear();
-	$current_date = new Date();
-	$current_year = $current_date.getFullYear();
-	$years_old = parseInt($current_year - $birth_year);
-	$retirement_age = parseInt($('#retirement-age').val());
-	if($retirement_age >= $years_old){
+	var birth_date_value = document.getElementById("birth_date").value;
+	var birth_date = new Date(birth_date_value);
+	var birth_year = birth_date.getFullYear();
+	var years_old = parseInt(current_year - birth_year);
+	if(isNaN(years_old)){
+		return false;
+	}
+	var retirement_age = parseInt(document.getElementById("retirement-age").value);
+	if(retirement_age >= years_old){
 		retirement_age_valid = true;
+
+		display_validation_messages("retirement-age",true);
 		$('#retirement-age-validation-icon').css('display','block');
 		$('#retirement-age-validation-icon').attr('src','images/validation-checkmark.png');
-		$('#retirement-age-validation-message').css('display','none');
+		$('#retirement-age-display').css('display','none');
 	}else{
-		$years_till_retirement = $years_old - $retirement_age;
 		retirement_age_valid = false;
-		$('#retirement-age-validation-message').css('display','block');
+		years_till_retirement = years_old - retirement_age;
+		$('#retirement-age-display').css('display','block');
 		$('#retirement-age-validation-icon').attr('src','images/validation-x.png');
-		if($years_till_retirement == 1){
-			$('#retirement-age-validation-message .validation-callout').html('1 year');
+		if(years_till_retirement == 1){
+			document.getElementById("years-ago").innerHTML = "1 year";
 		}else{
-			$('#retirement-age-validation-message .validation-callout').html($years_till_retirement + ' years');
+			document.getElementById("years-ago").innerHTML = years_till_retirement + " years";
 		}
 	}
 	if(validate_fieldset_one()){
@@ -395,23 +407,11 @@ $(".previous").click(function(){
 
 $(".next").click(function(){
 	if(name_valid == false){
-		$('#name').siblings('.validation-message').css('display','block');
-		$('#name').siblings('.validation-icon').attr('src','images/validation-x.png');
-		$('#name').siblings('.validation-icon').css('display','block');
+		display_validation_messages("#name",false);
 	}else{
-		$('#name').siblings('.validation-message').css('display','none');
-		$('#name').siblings('.validation-icon').attr('src','images/validation-checkmark.png');
-		$('#name').siblings('.validation-icon').css('display','none');
+		display_validation_messages("#name",true);
 	}
-	if(sex_valid == false){
-		$('#gender-row .validation-message').css('display','block');
-		$('#gender-row .validation-icon').attr('src','images/validation-x.png');
-		$('#gender-row .validation-icon').css('display','block');
-	}else{
-		$('#gender-row .validation-message').css('display','none');
-		$('#gender-row .validation-icon').attr('src','images/validation-checkmark.png');
-		$('#gender-row .validation-icon').css('display','none');
-	}
+	validate_gender();
 })
 $(".submit").click(function(){
 	validate_fieldset_two();
