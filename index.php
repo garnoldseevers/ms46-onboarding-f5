@@ -14,8 +14,11 @@
 		<h2 class="headline"><span class="light">We'd Fill This Out For You</span> But We Don't Have E.S.P.</h2>
 		<div class="form-row">
 			<label for="name" autofocus>My first name is...</label>
-			<input type="text" name="name" placeholder="First Name" value="" required/>
+			<input type="text" name="name" placeholder="First Name" value="" id="name" required/>
 			<img src="images/validation-checkmark.png" class="validation-icon"></span>
+			<p class="validation-message" id="birth-date-validation-message">
+				required
+			</p>
 		</div><!-- .form-row -->
 		<div class="form-row clearfix" id="gender-row">
 			<label for="sex">I am a...</label>
@@ -27,10 +30,14 @@
 				<input type="radio" name="sex" value="f" id="radio-button-woman"/>
 				<label for="radio-button-woman" class="radio-button-label" id="radio-button-label-woman">Woman</label>
 			</div>
+			<img src="images/validation-checkmark.png" class="validation-icon"></span>
+			<p class="validation-message" id="birth-date-validation-message">
+				required
+			</p>
 		</div><!-- .form-row -->
 		<div class="form-row" id="birth-date-row">
 			<label for="birth_date">I was born on...</label>
-			<input type="date" name="birth_date" class="mobile" value="1999-12-31" id="birth_date" />
+			<input type="date" name="birth_date_picker" class="mobile" value="1999-12-31" id="birth_date_mobile" />
 			<div class="desktop">
 				<div class="select-container" id="birth-month-select-container">
 					<div class="select-arrow"></div>
@@ -88,10 +95,13 @@
 						?>
 					</select>
 				</div><!-- .select-container -->
-				<input type="hidden" name="birth_date" id="birth_date"/>
-			</div>
-			<p class="validation-message" id="birth-date-validation-message">
+			</div><!-- .desktop -->
+			<input type="hidden" name="birth_date" id="birth_date"/>
+			<p class="validation-message" id="birth-date-age-display">
 				So you're saying you are <span class="validation-callout" id="birth_age">15</span>
+			</p>
+			<p class="validation-message" id="birth-date-validation-message">
+				required
 			</p>
 			<img src="images/validation-checkmark.png" class="validation-icon" id="birth-date-validation-icon"></span>
 		</div><!-- .form-row -->
