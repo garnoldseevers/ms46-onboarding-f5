@@ -31,7 +31,7 @@
 				<label for="radio-button-woman" class="radio-button-label" id="radio-button-label-woman">Woman</label>
 			</div>
 			<img src="images/validation-checkmark.png" class="validation-icon"></span>
-			<p class="validation-message" id="birth-date-validation-message">
+			<p class="validation-message" id="gener-validation-message">
 				required
 			</p>
 		</div><!-- .form-row -->
@@ -96,12 +96,12 @@
 					</select>
 				</div><!-- .select-container -->
 			</div><!-- .desktop -->
+			<p class="validation-message" id="birth-date-validation-message">
+				required
+			</p>
 			<input type="hidden" name="birth_date" id="birth_date"/>
 			<p class="additional-info" id="birth-date-age-display">
 				So you're saying you are <span class="validation-callout" id="birth_age">15</span>
-			</p>
-			<p class="validation-message" id="birth-date-validation-message">
-				required
 			</p>
 			<img src="images/validation-checkmark.png" class="validation-icon" id="birth-date-validation-icon"></span>
 		</div><!-- .form-row -->

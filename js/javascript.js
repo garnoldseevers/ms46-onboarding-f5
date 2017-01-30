@@ -122,10 +122,12 @@ function validate_birth_date_mobile(){
 		years_old = current_year - birth_year;
 		document.getElementById("birth_age").innerHTML = years_old;
 		$("#birth-date-validation-icon").css('display','block');
+		$(selected_element_id).siblings(".validation-message").css('display','none');
 		$("#birth-date-age-display").css('display','block');
 		birth_date_valid = true;
 	}else{
 		$("#birth-date-validation-icon").css('display','none');
+		$(selected_element_id).siblings(".validation-message").css('display','block');
 		$("#birth-date-age-display").css('display','none');
 		birth_date_valid = false;
 	}
@@ -346,34 +348,9 @@ $("#next-one").click(function(){
 	}
 });
 
-function show_next_fieldset($clicked_button){
-	if(animating) return false;
-	animating = true;
-	
-	current_fieldset = $($clicked_button).parent();
-	next_fieldset = $($clicked_button).parent().next();
-	
-	//activate next step on progress-bar using the index of next_fieldset
-	$("#progress-bar li").eq($("fieldset").index(next_fieldset)).addClass("active");
-	
-	//show the next fieldset
-	next_fieldset.show(); 
-	//hide the current fieldset with style
-	current_fieldset.animate({opacity: 0}, {
-		step: function(now, mx) {
-			left = (now * 50)+"%";
-			opacity = 1 - now;
-			current_fieldset.css({'transform': 'scale('+scale+')'});
-			next_fieldset.css({'left': left, 'opacity': opacity});
-		}, 
-		duration: 300, 
-		complete: function(){
-			current_fieldset.hide();
-			animating = false;
-		}, 
-		easing: 'swing'
-	});
-}
+/* 
+**	Fieldset Navigation 
+*/
 
 $(".previous").click(function(){
 	if(animating) return false;
@@ -412,8 +389,49 @@ $(".next").click(function(){
 		display_validation_messages("#name",true);
 	}
 	validate_gender();
+	if(birth_date_valid == false){
+		$("#birth_date").siblings(".validation-icon").attr('src','images/validation-x.png');
+		$("#birth_date").siblings(".validation-icon").css('display','block');
+		$("#birth_date").siblings(".validation-message").css('display','block');
+	}else{
+		$("#birth_date").siblings(".validation-icon").attr('src','images/validation-checkmark.png');
+		$("#birth_date").siblings(".validation-icon").css('display','block');
+		$("#birth_date").siblings(".validation-message").css('display','none');
+	}
 })
 $(".submit").click(function(){
 	validate_fieldset_two();
 })
 
+/*
+**	Fieldset Animation
+*/
+
+function show_next_fieldset($clicked_button){
+	if(animating) return false;
+	animating = true;
+	
+	current_fieldset = $($clicked_button).parent();
+	next_fieldset = $($clicked_button).parent().next();
+	
+	//activate next step on progress-bar using the index of next_fieldset
+	$("#progress-bar li").eq($("fieldset").index(next_fieldset)).addClass("active");
+	
+	//show the next fieldset
+	next_fieldset.show(); 
+	//hide the current fieldset with style
+	current_fieldset.animate({opacity: 0}, {
+		step: function(now, mx) {
+			left = (now * 50)+"%";
+			opacity = 1 - now;
+			current_fieldset.css({'transform': 'scale('+scale+')'});
+			next_fieldset.css({'left': left, 'opacity': opacity});
+		}, 
+		duration: 300, 
+		complete: function(){
+			current_fieldset.hide();
+			animating = false;
+		}, 
+		easing: 'swing'
+	});
+}
