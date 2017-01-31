@@ -20,7 +20,7 @@ var password_valid = false;
 // initialize time
 var current_date = new Date();
 var current_year = current_date.getFullYear();
-// initialize DOM elements
+// Assign DOM elements to variables
 var birth_month_dom = document.getElementById("birth-month");
 var birth_day_dom = document.getElementById("birth-day");
 var birth_date_dom = document.getElementById("birth-date");
