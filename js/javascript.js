@@ -85,9 +85,7 @@ $("#birth-month").change(function(){
 });
 
 $("#birth-year").change(function(){
-	if(is_leap_year($(this).val())){
-		set_days_in_month();
-	}
+	set_days_in_month();
 });
 
 $("#birth-month, #birth-day, #birth-year").change(function(){
@@ -209,30 +207,29 @@ function validate_birth_date(){
 function set_days_in_month(){
 	var birth_month = document.getElementById("birth-month").value;
 	var birth_year = document.getElementById("birth-year").value;
-	if(birth_month == 04 || birth_month == 06 || birth_month == 09 || birth_month == 11){
-		$('#birth-day option[value=31]').removeAttr('selected');
-		$('#birth-day option[value=31]').css('display','none');
-	}
 	if(birth_month == 02){
 		$('#birth-day option[value=31]').removeAttr('selected');
 		$('#birth-day option[value=31]').css('display','none');
 		$('#birth-day option[value=30]').removeAttr('selected');
 		$('#birth-day option[value=30]').css('display','none');
-		if(is_leap_year(birth_year)){
-			$('#birth-day option[value=29]').css('display','block');
-		}else{
+		if(!is_leap_year(birth_year)){
 			$('#birth-day option[value=29]').css('display','none');
 			$('#birth-day option[value=29]').removeAttr('selected');
+		}else{
+			$('#birth-day option[value=29]').css('display','block');
 		}
+	}else if(birth_month == 04 || birth_month == 06 || birth_month == 09 || birth_month == 11){
+		$('#birth-day option[value=31]').removeAttr('selected');
+		$('#birth-day option[value=31]').css('display','none');
 	}else{
 		$('#birth-day option[value=30]').css('display','block');
 		$('#birth-day option[value=31]').css('display','block');
 	}
+	
 }
 
-function is_leap_year($year)
-{
-  return (($year % 4 == 0) && ($year % 100 != 0)) || ($year % 400 == 0);
+function is_leap_year($year){
+	return (($year % 4 == 0) && ($year % 100 != 0)) || ($year % 400 == 0);
 }
 
 /*
