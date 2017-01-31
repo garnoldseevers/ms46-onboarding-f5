@@ -125,7 +125,7 @@
 			You aren't going to retire <span class="validation-callout" id="years-ago">2 years</span> ago, it's just not going to happen!
 		</p>
 		<img src="images/norton-seal.png" alt="Norton Secured powered by VeriSign" id="norton-seal"/>
-		<div class="next button active" id="next-one"/>Next<span class="button-arrow"></span></div>
+		<div class="next button" id="next-one"/>Next<span class="button-arrow"></span></div>
 	</fieldset>
 	<fieldset>
 		<h2 class="headline"><span class="light">First Things First.</span> Let's Make Sure We Keep You Safe</h2>

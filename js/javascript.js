@@ -155,8 +155,10 @@ function display_validation_messages(selected_element_id, validation_result){
 function validate_gender(){
 	if(sex_valid == false){
 		display_validation_messages("#sex-f-container",false);
+		$("#sex-f-container").siblings(".validation-icon").css('display','none');
 	}else{
 		display_validation_messages("#sex-f-container",true);
+		$("#sex-f-container").siblings(".validation-icon").css('display','none');
 	}
 }
 
@@ -422,20 +424,20 @@ function deactivate_button(selected_button){
 }
 
 // Ensure all fields in fieldset one are valid before proceeding to next
-$("#next-one").click(function(){
-	if(validate_fieldset_one()){
-		show_next_fieldset(this);
-		$("#submit").attr('type','button');
-	}
+
+$("body").on('click','#next-one.active',function(){
+	show_next_fieldset(this);
+	$("#submit").attr('type','button');
 });
 
-$(".next").click(function(){
+$("body").on('click','#next-one.inactive',function(){
 	if(name_valid == false){
 		display_validation_messages("#name",false);
 	}else{
 		display_validation_messages("#name",true);
 	}
 	validate_gender();
+	// Display Birthdate Validation Messages for either mobile or desktop
 	if(birth_date_valid == false){
 		$("#birth-date-validation-icon").attr('src','images/validation-x.png');
 		$("#birth-date-validation-icon").css('display','block');
@@ -445,7 +447,7 @@ $(".next").click(function(){
 		$("#birth-date-validation-icon").css('display','block');
 		$("#birth-date-validation-message").css('display','none');
 	}
-})
+});
 
 // Ensure all fields in fieldset two are valid before proceeding to next
 $(".submit").click(function(){
