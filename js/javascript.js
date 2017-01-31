@@ -165,10 +165,9 @@ function validate_gender(){
 */
 
 function validate_birth_date_mobile(){
-	alert("validate_mobile");
 	var birth_date_value = sanitize_input(document.getElementById("birth-date-mobile").value);
 	document.getElementById("birth-date").value = birth_date_value;
-	if(birth_date_value != null && !isNaN(birth_date_value)){
+	if(birth_date_value != null){
 		birth_date = new Date(birth_date_value);
 		birth_year = birth_date.getFullYear();
 		years_old = current_year - birth_year;
