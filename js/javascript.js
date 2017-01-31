@@ -142,7 +142,7 @@ function validate(selected_element){
 
 function sanitize_input(input_value){
 	// replace anything in the input_value that does not match a regular expression for a-z 0-9 spanish characters commas periods hypens underscores and spaces
-    var sanitized_string = input_value.replace(/[^a-z0-9áéíóúñü@!&?~:\ .,_\-]/gim,"");\
+    var sanitized_string = input_value.replace(/[^a-z0-9áéíóúñü@!&?~:\ .,_\-]/gim,"");
     return sanitized_string;
 }
 
