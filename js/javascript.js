@@ -271,7 +271,6 @@ function validate_retirement_age(){
 
 function validate_email(){
 	var email_field_value = sanitize_input(document.getElementById("email").value);
-	alert(email_field_value);
 	if(test_email_pattern(email_field_value)){
 		email_valid = true;
 		$("#email").siblings(".validation-icon").attr('src','images/validation-checkmark.png');
