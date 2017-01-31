@@ -36,8 +36,8 @@
 			</p>
 		</div><!-- .form-row -->
 		<div class="form-row" id="birth-date-row">
-			<label for="birth_date">I was born on...</label>
-			<input type="date" name="birth_date_picker" class="mobile" value="1999-12-31" id="birth_date_mobile" />
+			<label for="birth-date">I was born on...</label>
+			<input type="date" name="birth-date-mobile" class="mobile" value="1999-12-31" id="birth-date-mobile" />
 			<div class="desktop">
 				<div class="select-container" id="birth-month-select-container">
 					<div class="select-arrow"></div>
@@ -99,7 +99,7 @@
 			<p class="validation-message" id="birth-date-validation-message">
 				required
 			</p>
-			<input type="hidden" name="birth_date" id="birth_date"/>
+			<input type="hidden" name="birth-date" id="birth-date"/>
 			<p class="additional-info" id="birth-date-age-display">
 				So you're saying you are <span class="validation-callout" id="birth_age">15</span>
 			</p>
