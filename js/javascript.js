@@ -441,11 +441,11 @@ $("body").on('click','#next-one.inactive',function(){
 	if(birth_date_valid == false){
 		$("#birth-date-validation-icon").attr('src','images/validation-x.png');
 		$("#birth-date-validation-icon").css('display','block');
-		$("#birth-date-validation-message").css('display','block');
+		$("#birth-date-validation-message.validation-message").css('display','block');
 	}else{
 		$("#birth-date-validation-icon").attr('src','images/validation-checkmark.png');
 		$("#birth-date-validation-icon").css('display','block');
-		$("#birth-date-validation-message").css('display','none');
+		$("#birth-date-validation-message.validation-message").css('display','none');
 	}
 });
 
