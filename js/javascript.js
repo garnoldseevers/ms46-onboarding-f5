@@ -34,14 +34,14 @@ $(document).ready(function(){
 
 // get dcode variable from query string and apply to "discount_code_id" field
 function get_dcode(){
-	var dcode = getQueryVariable("dcode");
+	var dcode = get_variable_from_query("dcode");
 	if(dcode){
 		$("discount_code_id").attr('value',dcode);
 	}
 }
 
 // Parse query string
-function getQueryVariable(variable){
+function get_variable_from_query(variable){
 	var query = window.location.search.substring(1);
 	var parameters = query.split("&");
 	for (var i = 0; i < parameters.length; i++) {
@@ -73,7 +73,7 @@ $('select').change(function(){
 
 $("input[type=radio]").change(function(){
 	validate(this);
-	validate_gender();
+	adjust_gender_validation_messages();
 });
 
 $("#birth-date-mobile").change(function(){
@@ -152,14 +152,8 @@ function display_validation_messages(selected_element_id, validation_result){
 ** Validate Gender
 */
 
-function validate_gender(){
-	if(sex_valid == false){
-		display_validation_messages("#sex-f-container",false);
-		$("#sex-f-container").siblings(".validation-icon").css('display','none');
-	}else{
-		display_validation_messages("#sex-f-container",true);
-		$("#sex-f-container").siblings(".validation-icon").css('display','none');
-	}
+function adjust_gender_validation_messages(){
+	$("#sex-f-container").siblings(".validation-icon").css('display','none');
 }
 
 /*
@@ -436,7 +430,12 @@ $("body").on('click','#next-one.inactive',function(){
 	}else{
 		display_validation_messages("#name",true);
 	}
-	validate_gender();
+	if(sex_valid == true){
+		display_validation_messages("#sex-f-container",true);
+	}else{
+		display_validation_messages("#sex-f-container",false);
+	}
+	adjust_gender_validation_messages();
 	// Display Birthdate Validation Messages for either mobile or desktop
 	if(birth_date_valid == false){
 		$("#birth-date-validation-icon").attr('src','images/validation-x.png');
