@@ -81,7 +81,7 @@ body{
 	background: #ffffff;
 }
 #progress-bar li:after{
-	content: '';
+	content: "";
 	width: 100%;
 	height: 1px;
 	position: absolute;

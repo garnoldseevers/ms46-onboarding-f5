@@ -11,7 +11,7 @@
 		<li>Log In</li>
 	</ul>-->
 	<fieldset>
-		<h2 class="headline"><span class="light">We'd Fill This Out For You</span> But We Don't Have E.S.P.</h2>
+		<h2 class="headline"><span class="light">We"d Fill This Out For You</span> But We Don"t Have E.S.P.</h2>
 		<div class="form-row">
 			<label for="name" autofocus>My first name is...</label>
 			<input type="text" name="name" placeholder="First Name" value="" id="name" required/>
@@ -73,7 +73,7 @@
 						<?php 
 							for($counter = 1; $counter <= 31; $counter += 1){
 								?>
-								<option value="<?php echo sprintf('%02d',$counter); ?>" ><?php echo $counter; ?></option>
+								<option value="<?php echo sprintf("%02d",$counter); ?>" ><?php echo $counter; ?></option>
 								<?php
 							}
 						?>
@@ -101,11 +101,11 @@
 			</p>
 			<input type="hidden" name="birth-date" id="birth-date"/>
 			<p class="additional-info" id="birth-date-age-display">
-				So you're saying you are <span class="validation-callout" id="birth_age">15</span>
+				So you"re saying you are <span class="validation-callout" id="birth_age">15</span>
 			</p>
 			<img src="images/validation-checkmark.png" class="validation-icon" id="birth-date-validation-icon"></span>
 		</div><!-- .form-row -->
-		<label for="retirement-age">I'd like to smash my alarm clock (retire) at age...</label>
+		<label for="retirement-age">I"d like to smash my alarm clock (retire) at age...</label>
 		<div class="form-row" id="retirement-age-row">
 			<div class="select-container">
 				<div class="select-arrow"></div>
@@ -122,13 +122,13 @@
 			<img src="images/validation-checkmark.png" class="validation-icon" id="retirement-age-validation-icon"></span>
 		</div><!-- .form-row -->
 		<p class="additional-info error" id="retirement-age-display">
-			You aren't going to retire <span class="validation-callout" id="years-ago">2 years</span> ago, it's just not going to happen!
+			You aren"t going to retire <span class="validation-callout" id="years-ago">2 years</span> ago, it"s just not going to happen!
 		</p>
 		<img src="images/norton-seal.png" alt="Norton Secured powered by VeriSign" id="norton-seal"/>
 		<div class="next button" id="next-one"/>Next<span class="button-arrow"></span></div>
 	</fieldset>
 	<fieldset>
-		<h2 class="headline"><span class="light">First Things First.</span> Let's Make Sure We Keep You Safe</h2>
+		<h2 class="headline"><span class="light">First Things First.</span> Let"s Make Sure We Keep You Safe</h2>
 		<p class="subhead">
 			Why do you need to create an account? Easy. Safety first kids. Plus, if you get distracted (i.e. your boss walks past your desk), you can pick up right where you left off.
 		</p>

@@ -107,15 +107,15 @@ $("#birth-month, #birth-day, #birth-year").change(function(){
 
 document.getElementById("retirement-age").onchange = function(){
 	validate_retirement_age();
-}
+};
 
 document.getElementById("email").onkeyup = function(){
 	validate_email();
-}
+};
 
 document.getElementById("password").onkeyup = function(){
 	validate_password();
-}
+};
 
 /*
 **	General Validation
@@ -131,7 +131,7 @@ function validate(selected_element){
 	// Display the selected element's validation icon
 	$(selected_element).siblings(".validation-icon").css('display','block');
 	// Test to see if value of selected element is empty
-	if(selected_element_value == "" || selected_element_value == null){
+	if(selected_element_value === "" || selected_element_value === null){
 		window[selected_element_name + "_valid"] = false;
 		display_validation_messages(selected_element_id,false);
 	}else{
@@ -142,12 +142,13 @@ function validate(selected_element){
 
 function sanitize_input(input_value){
 	// replace anything in the input_value that does not match a regular expression for a-z 0-9 spanish characters commas periods hypens underscores and spaces
-    var sanitized_string = input_value.replace(/[^a-z0-9áéíóúñü@!&?~: \.,_-]/gim,"");
+    var sanitized_string = input_value.replace(/[^a-z0-9áéíóúñü@!&?~:\ .,_\-]/gim,"");
+    alert(sanitized_string);
     return sanitized_string;
 }
 
 function display_validation_messages(selected_element_id, validation_result){
-	if(validation_result == true){
+	if(validation_result === true){
 		$(selected_element_id).siblings(".error").css('display','none');
 		$(selected_element_id).siblings(".validation-message").css('display','none');
 		$(selected_element_id).siblings(".additional-info").css('display','block');
@@ -176,10 +177,10 @@ function adjust_gender_validation_messages(){
 function validate_birth_date_mobile(){
 	var birth_date_value = sanitize_input(birth_date_mobile_dom.value);
 	birth_date_dom.value = birth_date_value;
-	if(birth_date_value != null){
-		birth_date = new Date(birth_date_value);
-		birth_year = birth_date.getFullYear();
-		years_old = current_year - birth_year;
+	if(birth_date_value !== null){
+		var birth_date = new Date(birth_date_value);
+		var birth_year = birth_date.getFullYear();
+		var years_old = current_year - birth_year;
 		birth_age_dom.innerHTML = years_old;
 		$('#birth-date-validation-icon').attr('src','images/validation-checkmark.png');
 		$("#birth-date-validation-icon").css('display','block');
@@ -197,7 +198,7 @@ function validate_birth_date(){
 	var birth_month = sanitize_input(birth_month_dom.value);
 	var birth_day = sanitize_input(birth_day_dom.value);
 	var birth_year = sanitize_input(birth_year_dom.value);
-	if(birth_month != null && birth_month != "Month" && birth_day != null && birth_day != "Day" && birth_year != null && birth_year != "Year"){
+	if(birth_month !== null && birth_month != "Month" && birth_day !== null && birth_day != "Day" && birth_year !== null && birth_year != "Year"){
 		var birth_date = birth_year + "-" + birth_month + "-" + birth_day;
 		$("#birth-date").val(birth_date);
 		var years_old = current_year - birth_year;
@@ -216,7 +217,7 @@ function validate_birth_date(){
 function set_days_in_month(){
 	var birth_month = sanitize_input(birth_month_dom.value);
 	var birth_year = sanitize_input(birth_year_dom.value);
-	if(birth_month == 02){
+	if(birth_month === "02"){
 		$('#birth-day option[value=31]').removeAttr('selected');
 		$('#birth-day option[value=31]').css('display','none');
 		$('#birth-day option[value=30]').removeAttr('selected');
@@ -227,7 +228,7 @@ function set_days_in_month(){
 		}else{
 			$('#birth-day option[value=29]').css('display','block');
 		}
-	}else if(birth_month == 04 || birth_month == 06 || birth_month == 09 || birth_month == 11){
+	}else if(birth_month === "04" || birth_month === "06" || birth_month === "09" || birth_month == "11"){
 		$('#birth-day option[value=31]').removeAttr('selected');
 		$('#birth-day option[value=31]').css('display','none');
 	}else{
@@ -238,7 +239,7 @@ function set_days_in_month(){
 }
 
 function is_leap_year($year){
-	return (($year % 4 == 0) && ($year % 100 != 0)) || ($year % 400 == 0);
+	return (($year % 4 === 0) && ($year % 100 !== 0)) || ($year % 400 === 0);
 }
 
 /*
@@ -260,7 +261,7 @@ function validate_retirement_age(){
 			$('#retirement-age-display').css('display','none');
 		}else{
 			retirement_age_valid = false;
-			years_till_retirement = years_old - retirement_age;
+			var years_till_retirement = years_old - retirement_age;
 			$('#retirement-age-display').css('display','block');
 			$('#retirement-age-validation-icon').attr('src','images/validation-x.png');
 			if(years_till_retirement == 1){
@@ -298,13 +299,13 @@ function validate_email(){
 	    		}	
 	    	}
 	    });
-  		validate_fieldset_two()
+  		validate_fieldset_two();
 	}else{
 		email_valid = false;
 		$("#email").siblings(".validation-icon").attr('src','images/validation-x.png');
 		$("#email").siblings(".validation-icon").css('display','block');
 		$("#email").siblings(".validation-message").css('display','block');
-		validate_fieldset_two()
+		validate_fieldset_two();
 	}
 }
 
@@ -364,7 +365,7 @@ function validate_password(){
 	$("#password-strength-bar").css('background-color',password_message[password_strength].background);
 	password_strength_message_dom.innerHTML = password_message[password_strength].strength_message;
 	// check if the valid property of the password_message object is true
-	if(password_message[password_strength].valid == true){
+	if(password_message[password_strength].valid === true){
 		// if true, hide validation message and show checkmark
 		$("#password").siblings(".validation-message").css('display','none');
 		$("#password").siblings(".validation-icon").css('display','block');
@@ -379,7 +380,7 @@ function validate_password(){
 		// set password_valid variable to false
 		password_valid = false;
 	}
-	validate_fieldset_two()
+	validate_fieldset_two();
 }
 
 /*
@@ -388,7 +389,7 @@ function validate_password(){
 
 function validate_fieldset_one(){
 	// test to see if all field valid variables for current fieldset are true
-	if(name_valid == true && birth_date_valid == true && sex_valid == true && retirement_age_valid == true){
+	if(name_valid === true && birth_date_valid === true && sex_valid === true && retirement_age_valid === true){
 		activate_button("#next-one");
 		return true;
 	}else{
@@ -399,7 +400,7 @@ function validate_fieldset_one(){
 
 function validate_fieldset_two(){
 	// test to see if all field valid variables for current fieldset are true
-	if(email_valid == true && password_valid == true){
+	if(email_valid === true && password_valid === true){
 		// change submit input attribute from button to submit
 		$("#submit").attr('type','submit');
 		// adjust display of submit button
@@ -438,19 +439,19 @@ $("body").on('click','#next-one.active',function(){
 });
 
 $("body").on('click','#next-one.inactive',function(){
-	if(name_valid == false){
+	if(name_valid === false){
 		display_validation_messages("#name",false);
 	}else{
 		display_validation_messages("#name",true);
 	}
-	if(sex_valid == true){
+	if(sex_valid === true){
 		display_validation_messages("#sex-f-container",true);
 	}else{
 		display_validation_messages("#sex-f-container",false);
 	}
 	adjust_gender_validation_messages();
 	// Display Birthdate Validation Messages for either mobile or desktop
-	if(birth_date_valid == false){
+	if(birth_date_valid === false){
 		$("#birth-date-validation-icon").attr('src','images/validation-x.png');
 		$("#birth-date-validation-icon").css('display','block');
 		$("#birth-date-validation-message.validation-message").css('display','block');
@@ -463,12 +464,12 @@ $("body").on('click','#next-one.inactive',function(){
 
 // Ensure all fields in fieldset two are valid before proceeding to next
 $(".submit").click(function(){
-	if(email_valid == false){
+	if(email_valid === false){
 		display_validation_messages("#email",false);
 	}else{
 		display_validation_messages("#email",true);
 	}
-	if(password_valid == false){
+	if(password_valid === false){
 		display_validation_messages("#password",false);
 	}else{
 		display_validation_messages("#password",true);
