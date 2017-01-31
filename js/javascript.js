@@ -181,12 +181,6 @@ function validate_birth_date_mobile(){
 		$("#birth-date-validation-message").css('display','none');
 		birth_date_valid = true;
 	}else{
-		/*	Commenting out as this causes required error to show on each input if present
-		$('#birth-date-validation-icon').attr('src','images/validation-x.png');
-		$("#birth-date-validation-icon").css('display','none');
-		$("#birth-date-mobile").siblings(".validation-message").css('display','block');
-		$("#birth-date-age-display").css('display','none');
-		*/
 		birth_date_valid = false;
 	}
 	validate_retirement_age();
@@ -207,11 +201,6 @@ function validate_birth_date(){
 		$("#birth-date-age-display").css('display','block');
 		birth_date_valid = true;
 	}else{
-		/*	Commenting out as this causes required error to show on each input if present
-		$('#birth-date-validation-icon').attr('src','images/validation-x.png');
-		$("#birth-date-age-display").css('display','none');
-		$("#birth-date").siblings(".validation-message").css('display','block');
-		*/
 		birth_date_valid = false;
 	}
 	validate_retirement_age();
