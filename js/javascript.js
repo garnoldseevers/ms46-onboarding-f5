@@ -29,17 +29,14 @@ $("input[type=text]").keyup(function(){
 });
 
 $("#name").keyup(function(){
-	if(validate_fieldset_one()){
-		activate_button("#next-one");
-	}else{
-		deactivate_button("#next-one");
-	}
+	validate_fieldset_one();
 });
 $('select').change(function(){
 	$(this).css('background-color','#80b729');
 	$(this).css('color','#ffffff');
 	$(this).siblings(".select-arrow").css('border-color','#ffffff');
 });
+
 $("input[type=radio]").change(function(){
 	validate(this);
 	validate_gender();
@@ -119,7 +116,6 @@ function validate_gender(){
 	}else{
 		display_validation_messages("#sex-f-container",true);
 	}
-
 }
 
 /*
@@ -134,22 +130,21 @@ function validate_birth_date_mobile(){
 		birth_year = birth_date.getFullYear();
 		years_old = current_year - birth_year;
 		document.getElementById("birth_age").innerHTML = years_old;
+		$('#birth-date-validation-icon').attr('src','images/validation-checkmark.png');
 		$("#birth-date-validation-icon").css('display','block');
 		$(selected_element_id).siblings(".validation-message").css('display','none');
 		$("#birth-date-age-display").css('display','block');
+		$("#birth-date-validation-message").css('display','none');
 		birth_date_valid = true;
 	}else{
+		$('#birth-date-validation-icon').attr('src','images/validation-x.png');
 		$("#birth-date-validation-icon").css('display','none');
 		$(selected_element_id).siblings(".validation-message").css('display','block');
 		$("#birth-date-age-display").css('display','none');
+		$("#birth-date-validation-message").css('display','block');
 		birth_date_valid = false;
 	}
 	validate_retirement_age();
-	if(validate_fieldset_one()){
-		activate_button("#next-one");
-	}else{
-		deactivate_button("#next-one");
-	}
 }
 
 function validate_birth_date(){
@@ -175,25 +170,23 @@ function validate_birth_date(){
 		$('#birth-day option[value=30]').css('display','block');
 		$('#birth-day option[value=31]').css('display','block');
 	}
-	if(birth_month != null && birth_day != null && birth_year != null){
+	if(birth_month != null && birth_month != "Month" && birth_day != null && birth_day != "Day" && birth_year != null && birth_year != "Year"){
 		var birth_date = birth_year + "-" + birth_month + "-" + birth_day;
 		$("#birth_date").val(birth_date);
 		var years_old = current_year - birth_year;
 		$("#birth_age").html(years_old);
+		$("#birth_date").siblings(".validation-message").css('display','none');
+		$('#birth-date-validation-icon').attr('src','images/validation-checkmark.png');
 		$("#birth-date-validation-icon").css('display','block');
 		$("#birth-date-age-display").css('display','block');
 		birth_date_valid = true;
 	}else{
-		$("#birth-date-validation-icon").css('display','none');
+		$('#birth-date-validation-icon').attr('src','images/validation-x.png');
 		$("#birth-date-age-display").css('display','none');
+		$("#birth_date").siblings(".validation-message").css('display','block');
 		birth_date_valid = false;
 	}
 	validate_retirement_age();
-	if(validate_fieldset_one()){
-		activate_button("#next-one");
-	}else{
-		deactivate_button("#next-one");
-	}
 }
 
 function is_leap_year($year)
@@ -212,7 +205,6 @@ function validate_retirement_age(){
 	var retirement_age = parseInt(document.getElementById("retirement-age").value);
 	if(retirement_age >= years_old){
 		retirement_age_valid = true;
-
 		display_validation_messages("retirement-age",true);
 		$('#retirement-age-validation-icon').css('display','block');
 		$('#retirement-age-validation-icon').attr('src','images/validation-checkmark.png');
@@ -228,11 +220,7 @@ function validate_retirement_age(){
 			document.getElementById("years-ago").innerHTML = years_till_retirement + " years";
 		}
 	}
-	if(validate_fieldset_one()){
-		activate_button("#next-one");
-	}else{
-		deactivate_button("#next-one");
-	}
+	validate_fieldset_one();
 }
 
 function validate_email(){
@@ -339,8 +327,10 @@ function validate_password(){
 function validate_fieldset_one(){
 	// test to see if all field valid variables for current fieldset are true
 	if(name_valid == true && birth_date_valid == true && sex_valid == true && retirement_age_valid == true){
+		activate_button("#next-one");
 		return true;
 	}else{
+		deactivate_button("#next-one");
 		return false;
 	}
 }

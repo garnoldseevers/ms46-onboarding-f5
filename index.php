@@ -154,6 +154,7 @@
 			</p>
 		</div><!-- .form-row -->
 		<input type="hidden" name="password_verify" value="" id="password_verify"/>
+		<input type="hidden" name="discount_code_id" value="" id="discount_code_id"/>
 		<div class="previous button"/>
 			<span class="button-arrow"></span>Previous
 		</div>
