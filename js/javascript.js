@@ -129,7 +129,7 @@ function validate(selected_element){
 
 function sanitize_input(input_value){
 	// replace anything in the input_value that does not match a regular expression for a-z 0-9 spanish characters commas periods hypens underscores and spaces
-    var sanitized_string = input_value.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");
+    var sanitized_string = input_value.replace(/[^a-z0-9áéíóúñü@!&?~: \.,_-]/gim,"");
     return sanitized_string;
 }
 
@@ -165,7 +165,8 @@ function validate_gender(){
 */
 
 function validate_birth_date_mobile(){
-	var birth_date_value = document.getElementById("birth-date-mobile").value;
+	alert("validate_mobile");
+	var birth_date_value = sanitize_input(document.getElementById("birth-date-mobile").value);
 	document.getElementById("birth-date").value = birth_date_value;
 	if(birth_date_value != null && !isNaN(birth_date_value)){
 		birth_date = new Date(birth_date_value);
@@ -185,9 +186,9 @@ function validate_birth_date_mobile(){
 }
 
 function validate_birth_date(){
-	var birth_month = document.getElementById("birth-month").value;
-	var birth_day = document.getElementById("birth-day").value;
-	var birth_year = document.getElementById("birth-year").value;
+	var birth_month = sanitize_input(document.getElementById("birth-month").value);
+	var birth_day = sanitize_input(document.getElementById("birth-day").value);
+	var birth_year = sanitize_input(document.getElementById("birth-year").value);
 	if(birth_month != null && birth_month != "Month" && birth_day != null && birth_day != "Day" && birth_year != null && birth_year != "Year"){
 		var birth_date = birth_year + "-" + birth_month + "-" + birth_day;
 		$("#birth-date").val(birth_date);
@@ -205,8 +206,8 @@ function validate_birth_date(){
 }
 
 function set_days_in_month(){
-	var birth_month = document.getElementById("birth-month").value;
-	var birth_year = document.getElementById("birth-year").value;
+	var birth_month = sanitize_input(document.getElementById("birth-month").value);
+	var birth_year = sanitize_input(document.getElementById("birth-year").value);
 	if(birth_month == 02){
 		$('#birth-day option[value=31]').removeAttr('selected');
 		$('#birth-day option[value=31]').css('display','none');
@@ -237,12 +238,12 @@ function is_leap_year($year){
 */
 
 function validate_retirement_age(){
-	var birth_date_value = document.getElementById("birth-date").value;
+	var birth_date_value = sanitize_input(document.getElementById("birth-date").value);
 	var birth_date = new Date(birth_date_value);
 	var birth_year = birth_date.getFullYear();
 	if(!isNaN(birth_year)){
 		var years_old = parseInt(current_year - birth_year);
-		var retirement_age = parseInt(document.getElementById("retirement-age").value);
+		var retirement_age = parseInt(sanitize_input(document.getElementById("retirement-age").value));
 		if(retirement_age >= years_old){
 			retirement_age_valid = true;
 			display_validation_messages("retirement-age",true);
@@ -269,7 +270,8 @@ function validate_retirement_age(){
 */
 
 function validate_email(){
-	var email_field_value = document.getElementById("email").value;
+	var email_field_value = sanitize_input(document.getElementById("email").value);
+	alert(email_field_value);
 	if(test_email_pattern(email_field_value)){
 		email_valid = true;
 		$("#email").siblings(".validation-icon").attr('src','images/validation-checkmark.png');
@@ -344,7 +346,7 @@ password_message.push({
 });
 
 function validate_password(){
-	// assign value of password field to variable
+	// assign value of password field to variable, we do NOT sanitize this. I am told that all characters are accepted
 	var password_field_value = document.getElementById('password').value;
 	// pass password field value to zxcvbn function and assign result to variable
 	var result = zxcvbn(password_field_value);
@@ -437,13 +439,13 @@ $(".next").click(function(){
 	}
 	validate_gender();
 	if(birth_date_valid == false){
-		$("#birth-date").siblings(".validation-icon").attr('src','images/validation-x.png');
-		$("#birth-date").siblings(".validation-icon").css('display','block');
-		$("#birth-date").siblings(".validation-message").css('display','block');
+		$("#birth-date-validation-icon").attr('src','images/validation-x.png');
+		$("#birth-date-validation-icon").css('display','block');
+		$("#birth-date-validation-message").css('display','block');
 	}else{
-		$("#birth-date").siblings(".validation-icon").attr('src','images/validation-checkmark.png');
-		$("#birth-date").siblings(".validation-icon").css('display','block');
-		$("#birth-date").siblings(".validation-message").css('display','none');
+		$("#birth-date-validation-icon").attr('src','images/validation-checkmark.png');
+		$("#birth-date-validation-icon").css('display','block');
+		$("#birth-date-validation-message").css('display','none');
 	}
 })
 
